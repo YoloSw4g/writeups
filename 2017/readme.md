@@ -1,0 +1,98 @@
+# Unlucky
+
+We didn't manage to solve this during the competition because we suck. We still have pride, so we wanted to provide a write-up for the challenge, since it was still an interesting one to solve.
+This challenge was about decrypting an RSA-encrypted text. For that, we were given:
+
+- The public key:
+
+```text
+-----BEGIN RSA PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAyyj+K5YrxLR0K1kurP0K
+GtOgXhnBKAkMJgiGu2OrbjRXHy0uATxajodcWbsKSjLuAgsDiO17ADYHBisIfiqo
+/eDcz7McDxtXX1qf0ToDjwxIvyPnhnPHLRG+kJqLy4FxX4f4gvJQV1hW3OwYgUa3
+ylAhPERMXfCReeQxpcwri8QFiW1vuxJIRnTpxIxeU1Ac5Ekce1YqUJHb07dKD6zt
+gVHUCsWJnPwcib+a8xjDuTfeMYzYx4FQWYEaYEAZ897ZO1iavnP1wE/dAh8WLDZF
+Sz5WqwViuF9O3jZG3Nl6CNZdhVGnkhxq8fgdbdo1cdxaffulxeiEm77lfs7Us166
+cZnVuxjPyIH12tpTAlG5ODFI49ru0tAKcihQgdaXggMr5SH00pN3QSVUumy7pLFw
+0mnqxO8vwXEwYe2zNMgEn+go0Wn9ksct2wEMIpbRLSHZcMZckX5iwnZuWvT+yY64
+KQEiHtTsE2o1Ih9GzpzOpHrkISOBZUtI+VaGAHiwYRKdgaAFTZ9Rk38Sgiv9dk9c
+HbggUzNtq7tpJw2rR9q5Kpl01QYpbddykuS1THstYGQNI6rvjx+WVW8ADR4hn/M7
+nsNxXAP1Zlj8fltX2csHpt3cF2Dq2rGILfvhyEFR3V2xZocUJFIoxh6IZHtbVPQI
+a48VlxsZD4bBTvr5d0eQfv0CAwEAAQ==
+-----END RSA PUBLIC KEY-----
+```
+
+- A series of texts and their signatures:
+```text
+Mont Blanc (4809 m)
+MdxEIG7Q6/t40G6SCIWNzHypf27YF4RsP2gCE611s5U/Xt6Bjqzh7sJfBNaYvZ1XRhpTqIHSyOsa8KQsY4eqvAs9GEzPeKcFzkkhkF+4P5cImrm1GPbtAaSeJCVBH2eJ7z0kQ2OBkqZrLWr2C3uh2HTp2hxozOYAJwubRSWjuHXElnsDGDWqXruBzxOUr88y8bExnYYyudgvgcAdmYgGijKnhs4pTgSw72Qjvf2Vf+FVGUT4FPom15t/CBuwMTW2lYsveHeET9c8hr7zKpRlV6xXUbplvMwuHPYWDgHDDBz19bCV13iuId7m1nmJE+cocigRxvuZknZLKHjlzlhFlRWidYUMOHTsKfbbPsol6CESOfXKL1WciQanlF1fA+KI6sD49OJZBmJca3GkaLQptPTHAYN+rIGl2cw+1iwP4bcZcBXY9NucHkLqokX2RAfEhOKOeYTg85IQf9Uep5vPgqe9d7oFuiHRbP2GhJshMGOh4DQwYpizfy2EhRIuD3npnhjD5fLIaW/UhBtbLTFdaQy0M30xEqzvDlQCrWrmLTMmrI5Yt7j8CXXv6gmSZXgngYl5QbkWtxfjB/p0NnZ62YUksOFGVMqLguOTYKrSIVmJ0qU5orwqaklGXZJp+diSK1zkqciX0cKHWncHHhVdWZZLasi8t6CzsbH4ufPNG6U=
+ 
+Mont Blanc de Courmayeur (4748 m)
+IRJXw6Fw91WE7aGl1S7j0jdQmbBTU6fIYvITinNj9tE1P4CQEzcOte9J5zThoeFVZfMGoxuWnIGMjBT2FkoDRjqIHy4haWGSg0rxviedsitIVF/6OURP1d1wPV1BUhgTCSJ4eRHj97ZAQmqaz3PxIc5mB6rtjM67wrAcM0lbId4yTnIv9QP+5YRM3aEYd8t+WPWYwtmWLNyPim9NxnAoXYuMNKaMmxWswPHvVdJeFt2INzVdTp9ttCj0YZPoQIC4lJGZCROg7+9DQxhkVduzmnjY85o6s+tiVHrAXK0kQM3Q6DLGIuGVznEXjBQkL9TdoDCIAK4XR8QqUQRKqlZ6MARiZlBlzrlg1g04gd9qN65VGDdz19mC3Nx5V8vGl9VsDKh8GShjYaVg490BdMUElS+Y/u2ACQ7a/paUakluGuJkYC45B+d4xw7lMaBt3KbShiuKDDkeXpEBiqnH+Qf8v2K4mg27ZS8v60ZaomQlkEoLvXhNfO1T0A9yo5DY63F3wugH5HnJoD6Q9J1+fw4pkONRaH4Mb1s8E6IVZjw3VS4p6QPnjky2p8cnJ8a7gMI0ciYhNHnmcewrrHKm7UPZhd9EWgyGjtPhniiUGpmtZRcWy6DRbY9fTIL9qtW1flbqWsglbjFQXaIJS0v7r42tNPjF5Uz3pSutC5FeuEs+rYM=
+ 
+Pointe Dufour (4634 m)
+ZtTJDdRDU/645zErdGHEPL4/R3D+WyG7vU0sqQPSeSfC8ePJSv2AI8Dwm3UpLGO0Brjh2ByVODNBcy+Nzcj0e3GAy5xqvCZfdjtnoPiDeJIiid3CCqrU02dwR+Ni8CfVV+VgxorO2yuXR88T2p9IQ2RmLLu3AXoNewVgsnrOovtYwhKSQPYFdxPKGlcovw70ly+eqJJ+RnRj832CxgOcXWPTE3ahEXwpgeIBNkzJwR37iWvvSLIdYDQvq7dL3jo+anVvgyAQap0a2Fgn5o36w69IGJbMA3kV8OvDNEQIuRU3SjGi/PU8A1wly37pJD8Q7AhOlkhnZIHEU17sGupPtmHFjVvtAryPgjRMlcICmB/JaNRYx/9OGMKlHrNlijEQ4lj6M3WMRKXGnBOGW+eavrfid1srSA5+d/vJcQqCA0Vj26vVvDIv6JQk1Jjyi4m8o2GXZHiEwO+R8gUTdyLSjobkxrHBn0vAQOibcf04skK9y1CTzvXf/DfoWqRf3/r/6EkbsV77BMH5NogubL5u032hPAzUfNQNOLsx2yHN4WAGS0+ge1jGZ6lZpek9Ns1wXwQVgA62w4XTP77ruUKNP80XcRh+tnUM9GTqKVie8dyDW3mHeEmwt1Vs1IF19H0TRgpgPXhAMvLA5LJbQpnqmzX1iY2UiWMfM3scVpDn+hc=
+ 
+Dom des Mischabel (4545 m)
+CfqCd4jwvkAxoEkxUHSiAeK1IJ1B1Yt4xVDiIoi4jZplC07/yg2GS4eciOOj9NujSIIK+HIAK/KZ5Fr3LhAgHaOS6A16dha+5Y4352bXa8vdg5K+Rgmgm+3436oqaYr5GkBZOOuRNF5JGto3fsozkqRMC99ilAtQHOVvSm/nXTVnbv52RmYJEkeBUQQ2N4faM7/OcjlE7O8SYlzHvSIGTVduoUGruwuD+m6wvIAd3jgCBKsBsk4aveJ+b6UJ4AFy3o4lUVgYeo3PYVQORnB8N2PXOyGNkDQC5+k/eO678gn3u8eIA5tg5Hszhh0YbCYW9IUcpSCAE9rHtsoHrWQTh/D1CeW5isKy730CNtFGbgRQIC7ikltw7wOx83+HMbLAokKn7UETQ3A+7tV2VdwHOPMjj3hZr012ddojq51DQVYjj4azi+3Rw/ufQUCSMQzRPBew2VDz8NNY7yjtM9UuTJ5v1M1jmxDLcTo7XpcAbqBmvKGZqkWR/N2jxxYxs6/RclE2E5/p6EFrgUxRP21ZAfx8HjOa8JpCDSIEx5D1BEDk6M4PhD5nTeeykHzv50wQR+WvySugUB2tetVgBR1yGiXnIv3fHXVCECHHeYf5ALBveM2V+F9ntZjPjpNTW603Ycn8xhTmYHUkI63zziaMIZGWjwTmwrnv5Bv32BMQ/QA=
+
+[...and more...]
+```
+
+- The ciphertext to decrypt:
+```text
+-----BEGIN RSA ENCRYPTED MESSAGE-----
+fFQ5l+uYp0kjaqGUFRwmnPkJzF6c6TPYFH2AF0hEWwvxdJ6+VX/C7pkgV9yosZ9g
+ylGDK4PJqpegT38cvFd/1p+g/Vq25iihFXfUjg6lnoHa10WG7m9qXrHcmI4MyRXG
+jpXQbNSG/ZejLHhfTE3VUPPxL6XwTjC/9LOumVzXLZwzvaXouJIaottHFQZq3rkT
+hTPS8aqDpAbnuGvwp9aG72Fx0YiIIQx0Mag4OMXr31cD3KoJTrx01ReKX41oqXRI
++fQxOZjZDqUhyt4QIw5vjaxTib/jqtTu0rJ63VETHpH0UQCG6lU3qEKxDTJ4PFOw
+NGphTbV9U2OPgzYIHYktwEYvwhd0iVgTK9AJ6Dzb01/x7PgigCHv7DIScsb8Se6f
+shncFuXthUqb8/voQTcbAr4zrU7dUkMTrr5Gp6s/QLMv62WNeOCMHHwGBC0EMosT
+MOB6AFfGEMvbzCrAepm/UasSUA91i18mmtJSVyN6B8UnRA+ktPRBb5enJOORmq/f
+rODC09O7L0ABisiKtKovfyciPTiMLX1xYlGhlv64M1WXokC0jZFVNF/Cxid/5thA
+Xj6y/1/uozJvNonA4wllXhTt9SHZdqNmvONFtoBDPUqfIY9/9BH9bQCuVEcpeMaw
+GbyPB12yLDq+qbrOIRnl79r/6mz9Bs+P0+h2hpJ5qA0=
+-----END RSA ENCRYPTED MESSAGE-----
+```
+
+- And a hint:
+```text
+Dear challenger,
+We intercepted many RSA/PKCS1 signatures generated by a single RSA key from Switzerland.
+We know that those signatures have been generated by a server with Go 1.5.1 on a 32 bits architecture.
+Here is the public component of the used key:
+```
+
+##First step - The hint
+
+It says that the signatures were done using Go 1.5.1 . A quick Google search tells us that there is a problem within exponentiation algorithms in this version and that there is a very small chance (if you are Unlucky ^^, see what I did there?) that an RSA signature will be incorrect.
+To find out if there was a failed signature, we just ran 'openssl rsautl verify ....' on every text/signature. Lo and behold, one of them is incorrect:
+```text
+Pic Sans Nom (3913 m)
+sTL3fvslMBMcSWCELORElJ3Z54cOdM9+PnHg52AdREr9ELNogojXgzVRzRo8kYeMo/g5GL/0pb3USfWpbbiGIr1aHpwngHGolJ/6rQbT9h2Mgwb2O4UqWET2/MTGK1LFSNa8X/NbVEiJDFaAhfhtRp0914Ngm76qczGlbQEKI2OhhUU0t4oN6psvIOnuzwzIY2fxc/HePQKTsCeyTq6KNaxoIgGIYPkgNtIKWqZEi3Pf4R00IVYcw0H5ohhXQ3x7zXyla1AizVAGfzYpXcBNNAOrfoLEaSQ+fsxYiWsAwRShZDpctmtPyC+hld1WxZ5lxH5kk/EyZxMc+tjV6BVixBJmnBe9RDJwYWbAivdZ9r5eu6wQXPlNgj2/bFZkIV1GK2o5mqwY8her/SZ/Hruwg0pm93MccujCyceM37HbUVuNiDsfDq35A26w+V0h0tyyB/fdrLQ0/AOO6YEOkXIJ9TR8uTAng5b3b4eE8s2MSnccqRVC3bn+lZD+H5L3Rqpd559RFRLOOVbh/6SQ9PN4lyYwIu1bkAlq77psl8Ux4e1JpEWC/Gw5xBAuPUesZI8GKozbts+Oe9p4ph7i8chytD4faH4rCDcKTaGhfhyOVcsy07KyoGvctrZR1832FLnfjA966Laow9dU83nzvbuu9B0zVMfavlc3M85oJW7bsKA=
+```
+
+##Second step - Understanding the basics of RSA fault attacks
+
+The description of the vulnerability for Go 1.5.1 states that there is a problem within "exponentiation" algorithms. This should ring a bell if you know about RSA fault attacks; if it doesn't, it will from now on ^^.
+There is one very classic attack on RSA when exponentiation is at fault: CRT attack. Here is a brief description:
+- Your RSA parameters will be called, as per usual, N, p, q, e and d;
+- Imagine you have a faulty signature S' (the good one is S) which was calculated such that q divides S' (which is normal) but p does not (which is not);
+- Then `q | S-S' and p !| S-S'` Therefore `S-S' = µq` and thus `gcd(S-S', N) = q`
+
+With a few more manipulations, you could also prove that `gcd(x-S', N) = q` where x is the cleartext that should give S as a signature.
+
+##Third step - Getting the *ùm^$$^m flag!
+- Do we have S'? Check!
+- Do we have x? Check! (do not forget to pad the thing, what goes into RSA for signature is the padded text, thus the "PKCS1" in the hint ^^)
+- Do we have N? Check!  (`openssl rsa -noout -modulus -in pubkey.pem`)
+
+We can then get p,q and therefore d. We thus have the private key and we can decrypt the original ciphertext: `openssl rsautl -decrypt -inkey privkey.pem -in cipher.cipher -out decrypted.txt`
+
+And there is the flag!
+
+`The flag is: ndh2k17_Y0d3lAyE30OoO0`
+
+
+
