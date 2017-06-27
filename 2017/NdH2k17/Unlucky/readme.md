@@ -78,10 +78,14 @@ sTL3fvslMBMcSWCELORElJ3Z54cOdM9+PnHg52AdREr9ELNogojXgzVRzRo8kYeMo/g5GL/0pb3USfWp
 The description of the vulnerability for Go 1.5.1 states that there is a problem within "exponentiation" algorithms. This should ring a bell if you know about RSA fault attacks; if it doesn't, it will from now on ^^.
 There is one very classic attack on RSA when exponentiation is at fault: CRT attack. Here is a brief description:
 - Your RSA parameters will be called, as per usual, N, p, q, e and d;
-- Imagine you have a faulty signature S' (the good one is S) which was calculated such that `q | S'` (which is normal) but `p !| S'` (which is not);
+- Imagine you have a faulty signature S' (the good one is S) which was calculated such that `q | S'` (which is normal) but `p !| S'` (which is not). This might seem like a stretch, but when the errors come from exponentiation, it is not;
 - Then `q | S-S' and p !| S-S'` Therefore `S-S' = µq` and thus `gcd(S-S', N) = q`
 
-With a few more manipulations, you could also prove that `gcd(x-S', N) = q` where x is the cleartext that should give S as a signature.
+With a few more manipulations, you could also prove that, if `x` is the cleartext that should give `S` as a signature:
+```text
+gcd(x-(S'^e), N) = q
+``` 
+This is our magic formula!
 
 ## Third step - Getting the *ùm^$$^m flag!
 - Do we have S'? Check!
