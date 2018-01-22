@@ -59,3 +59,19 @@ The script used to decipher `hint.gif.enc` can be found [here](https://github.co
 The deciphered GIF is:
 
 ![GIF](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/resources/hint.gif)
+
+# Step 3/3: finding the flag
+Ok, at this point, I really tried to avoid reversing the function `next`, but it know appears unavoidable.
+The function is composed of two separate parts:
+* First one takes the input on 256 bits, and extends it to 258 bits by shifting some
+* Second one build the 256-bit output by relying on groups of 3 bits from the intermediate output and the 86 Rule, which is an array of the bits of 86
+
+Let's take a look at what performs the first one. For the sake of simplicity, we use a number with far less than 256 bits, and try to see what it becomes. Each letter, such as `a` or `b` represents a bit:
+
+| Operation     | Result         |
+| ------------- |----------------|
+| `x`           | `00abcdefghij` |
+| `(x&1)<<N+1`  | `j00000000000` |
+| `x<<1`        | `0abcdefghij0` |
+| `x>>N-1`      | `00000000000a` |
+| **Result**    | `jabcdefghija` |
