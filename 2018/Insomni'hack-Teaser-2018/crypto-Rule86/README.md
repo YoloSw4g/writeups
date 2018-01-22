@@ -11,12 +11,12 @@ In this challenge, you are provided with 4 files:
 * The [encrypted version of said file](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/resources/rule86.txt.enc)
 
 The goal appears to be quite clear: decrypt the GIF to find the flag.
-I've put some utils functions in a [Python file](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/utils.py) to be used for the rest of the chall.
+I've put some utils functions in a [Python script](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py) to be used for the rest of the chall.
 
 ## Step 1/2: read the Python source
 Rule86 is announced to be a stream cipher, so the keystream is derived from an original key and xored with the text.
 We can retrieve the keystream used to encrypt `rule86.txt` by XOR-ing the file with `rule86.txt.enc`.
-This can be found here, and gives the following result for `super_cipher.py` (truncated since `rule86.txt` keystream is shorter than `super_cipher.py`):
+This can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py), and gives the following result for `super_cipher.py` (truncated since `rule86.txt` keystream is shorter than `super_cipher.py`):
 
 ```python
 #!/usr/bin/env python3
@@ -53,6 +53,6 @@ Let's analyse a bit the encryption script.
 A function next is used to generate a 32-byte integer from a 32-byte integer. The function next is applied 128 times to the Initialization Vector, and then used a stream cipher.
 Since we know the key has been reused, we know that the keystream will be identical for the encryption of `rule86.txt` and `hint.gif`.
 We can retrieve the first value of the keystream, and derive the rest since we have the `next` function.
-Actually, the provided script is in Python 3, which I don't like, so I wrote the equivalent of `from_bytes` (and its counterpart `from_int` in [utils.py](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/utils.py)
+Actually, the provided script is in Python 3, which I don't like, so I wrote the equivalent of `from_bytes` (and its counterpart `from_int` in [utils.py](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py)
 
-The script used to decipher `hint.gif.enc` can be found [here](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py)
+The script used to decipher `hint.gif.enc` can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py)
