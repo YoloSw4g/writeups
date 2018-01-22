@@ -48,7 +48,7 @@ for i in range(N//2):
 plainte
 ```
 
-# Step 2/2: decrypt the GIF
+## Step 2/2: decrypt the GIF
 Let's analyse a bit the encryption script.
 A function next is used to generate a 32-byte integer from a 32-byte integer. The function next is applied 128 times to the Initialization Vector, and then used a stream cipher.
 Since we know the key has been reused, we know that the keystream will be identical for the encryption of `rule86.txt` and `hint.gif`.
@@ -60,12 +60,14 @@ The deciphered GIF is:
 
 ![GIF](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/resources/hint.gif)
 
-# Step 3/3: finding the flag
+## Step 3/3: finding the flag
 Ok, at this point, I really tried to avoid reversing the function `next`, but it know appears unavoidable.
 The function is composed of two separate parts:
 * First one takes the input on 256 bits, and extends it to 258 bits by shifting some
 * Second one build the 256-bit output by relying on groups of 3 bits from the intermediate output and the 86 Rule, which is an array of the bits of 86
 
+
+### Step 3.1: bit shift
 Let's take a look at what performs the first one. For the sake of simplicity, we use a number with far less than 256 bits, and try to see what it becomes. Each letter, such as `a` or `b` represents a bit:
 
 | Operation     | Result         |
@@ -75,3 +77,21 @@ Let's take a look at what performs the first one. For the sake of simplicity, we
 | `x<<1`        | `0abcdefghij0` |
 | `x>>N-1`      | `00000000000a` |
 | **Result**    | `jabcdefghija` |
+
+Reversing that is easy, we only have to perform `x = (y>>1) & 0xffffffffffffffffffffffffffffffff`.
+
+### Step 3.2: rule masking
+This one is a little trickier. The algorithme takes the rightmost group of three bits, which forms a number between 0 and 7, and takes the correspoding bit value in the `RULE` array and sets this bit a the LSB in the final result.
+Then it moves to the next group of three bits (overlapping on two bits with the previous one) and repeats the process to compute the second LSB bit. Etc.
+
+if we want to reverse this step, we have to take into account multiple things:
+* 86 is balanced, its binary representation has as many 1s as 0s
+* The pre-image of a single bit can be 4 values
+* Knowing that the pre-images of two consecutive bits overlap on two bits, we have a first condition to reduce the possible number of values
+* The result of the first step has a final condition which is that the two leftmost bits are identical to the two rightmost bits, which drops the number of possible solutions to 1
+
+A [really dirty Python script](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py) takes all that into account to reverse the 128 first iterations of next, and retrieve the flag:
+```
+$ python revnext.py
+INS{Rule86_is_W0lfr4m_Cha0s}
+```
