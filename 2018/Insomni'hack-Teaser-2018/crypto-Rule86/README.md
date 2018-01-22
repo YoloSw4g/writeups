@@ -57,4 +57,5 @@ Actually, the provided script is in Python 3, which I don't like, so I wrote the
 
 The script used to decipher `hint.gif.enc` can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py).
 The deciphered GIF is:
+
 ![GIF](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/resources/hint.gif)
