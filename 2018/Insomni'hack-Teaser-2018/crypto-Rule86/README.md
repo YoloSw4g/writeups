@@ -55,4 +55,6 @@ Since we know the key has been reused, we know that the keystream will be identi
 We can retrieve the first value of the keystream, and derive the rest since we have the `next` function.
 Actually, the provided script is in Python 3, which I don't like, so I wrote the equivalent of `from_bytes` (and its counterpart `from_int` in [utils.py](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py)
 
-The script used to decipher `hint.gif.enc` can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py)
+The script used to decipher `hint.gif.enc` can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py).
+The deciphered GIF is:
+![GIF](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/resources/hint.gif)
