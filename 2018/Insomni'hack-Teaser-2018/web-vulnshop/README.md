@@ -16,6 +16,7 @@ However, things may not be simple to exploit since many sensitive PHP functions 
 ![PHPdisfun](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni'hack-Teaser-2018/web-vulnshop/resources/phpinfo.png)
 
 Some writeups out there try (and succeed) in modifying the value of the session variable, by modifying the file where it is stored on-disk. We tried a different approach, since the `popen` function was not disabled:
+
 ```
 resource popen ( string $command , string $mode )
 ```
@@ -32,4 +33,5 @@ These are the different calls we made to get a reverse shell:
 | captcha-verify | `popen` | r | Launches the program |
 
 As soon as we `GET` the last command, our reverse shell pops, and we can read `/flag`!
+
 Enjoy!
