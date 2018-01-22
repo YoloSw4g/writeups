@@ -30,3 +30,6 @@ These are the different calls we made to get a reverse shell:
 | captcha-verify | `file_put_contents` | some bash reverse shell | Store a reverse shell in our file |
 | captcha-verify | `chmod` | 511 | Sets chmod 0777 (octal, 511 in decimal) on our file |
 | captcha-verify | `popen` | r | Launches the program |
+
+As soon as we `GET` the last command, our reverse shell pops, and we can read `/flag`!
+Enjoy!
