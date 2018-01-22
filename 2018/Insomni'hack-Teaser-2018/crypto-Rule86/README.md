@@ -16,7 +16,7 @@ I've put some utils functions in a [Python script](https://github.com/YoloSw4g/w
 ## Step 1/2: read the Python source
 Rule86 is announced to be a stream cipher, so the keystream is derived from an original key and xored with the text.
 We can retrieve the keystream used to encrypt `rule86.txt` by XOR-ing the file with `rule86.txt.enc`.
-This can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py), and gives the following result for `super_cipher.py` (truncated since `rule86.txt` keystream is shorter than `super_cipher.py`):
+This can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/utils.py), and gives the following result for `super_cipher.py` (truncated since `rule86.txt` keystream is shorter than `super_cipher.py`):
 
 ```python
 #!/usr/bin/env python3
