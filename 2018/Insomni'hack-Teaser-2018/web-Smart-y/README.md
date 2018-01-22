@@ -46,7 +46,7 @@ There is not much to go with, so let's try to go in `./smarty`:
 
 ![toot](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/web-Smart-y/resources/dirlisting.png)
 
-We can go and see the [changelog](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/resources/change_log.txt) to grab the version number:
+We can go and see the [changelog](https://raw.githubusercontent.com/YoloSw4g/writeups/master/2018/Insomni%27hack-Teaser-2018/web-Smart-y/resources/change_log.txt) to grab the version number:
 
 ```
 ===== 3.1.31 ===== (14.12.2016)
