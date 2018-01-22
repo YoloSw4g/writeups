@@ -90,7 +90,7 @@ if we want to reverse this step, we have to take into account multiple things:
 * Knowing that the pre-images of two consecutive bits overlap on two bits, we have a first condition to reduce the possible number of values
 * The result of the first step has a final condition which is that the two leftmost bits are identical to the two rightmost bits, which drops the number of possible solutions to 1
 
-A [really dirty Python script](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py) takes all that into account to reverse the 128 first iterations of next, and retrieve the flag:
+A [really dirty Python script](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/revnext.py) takes all that into account to reverse the 128 first iterations of next, and retrieve the flag:
 ```
 $ python revnext.py
 INS{Rule86_is_W0lfr4m_Cha0s}
