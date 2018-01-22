@@ -53,7 +53,7 @@ Let's analyse a bit the encryption script.
 A function next is used to generate a 32-byte integer from a 32-byte integer. The function next is applied 128 times to the Initialization Vector, and then used a stream cipher.
 Since we know the key has been reused, we know that the keystream will be identical for the encryption of `rule86.txt` and `hint.gif`.
 We can retrieve the first value of the keystream, and derive the rest since we have the `next` function.
-Actually, the provided script is in Python 3, which I don't like, so I wrote the equivalent of `from_bytes` (and its counterpart `from_int` in [utils.py](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py)
+Actually, the provided script is in Python 3, which I don't like, so I wrote the equivalent of `from_bytes` (and its counterpart `from_int` in [utils.py](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decpy.py)).
 
 The script used to decipher `hint.gif.enc` can be found [here](https://github.com/YoloSw4g/writeups/blob/master/2018/Insomni%27hack-Teaser-2018/crypto-Rule86/files/decgif.py).
 The deciphered GIF is:
