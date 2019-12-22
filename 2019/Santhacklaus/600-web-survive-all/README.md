@@ -186,11 +186,3 @@ Password:
 root@071eab00eee9:/home/testaccount# cat /root/flag.txt
 SANTA{W3ll_d0ne!!You_HAVE_w0n}
 ```
-rvive [130] # ssh -i id_rsa testaccount@survive-all.santhacklaus.xyz
-Linux 071eab00eee9 4.19.0-6-amd64 #1 SMP Debian 4.19.67-2+deb10u2 (2019-11-11) x86_64
-
-The programs included with the Debian GNU/Linux system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Debian GNU/Linux com
